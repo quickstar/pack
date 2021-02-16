@@ -1,0 +1,3 @@
+[submodule "syntax/start/vim-go"]
+	path = syntax/start/vim-go
+	url = https://github.com/fatih/vim-go.git
