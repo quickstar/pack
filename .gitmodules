@@ -4,3 +4,9 @@
 [submodule "theming/start/gruvbox"]
 	path = theming/start/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
+[submodule "theming/start/vim-airline"]
+	path = theming/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "theming/start/vim-airline-themes"]
+	path = theming/start/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes
