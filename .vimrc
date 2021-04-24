@@ -1,5 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
+set nobackup                  " no backup files
+set noswapfile                " no swap files
 
 filetype plugin indent on	" required
 
