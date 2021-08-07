@@ -1,3 +1,5 @@
+set packpath^=~/.vim
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set nobackup                  " no backup files
