@@ -65,7 +65,7 @@ prompt_command() {
 
 export PROMPT_COMMAND=prompt_command
 
-# colored GCC warnings and errors
+  # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # enable color support of ls and also add handy aliases
@@ -77,11 +77,16 @@ fi
 
 unset color_prompt force_color_prompt
 # some more ls aliases
-alias l='ls -al'
-alias ll='ls -CF'
+alias l='ls -alh'
+alias ll='ls -lh'
 alias la='ls -A'
+alias cgit='cd ~/git'
+alias cplace='cd ~/git/placeme'
 alias ..='cd ..'
 alias ~='cd ~/'
+alias k='kubectl'
+alias bat='batcat'
+alias dka='docker kill $(docker ps -q)'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -93,3 +98,11 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# enable vi mode in bash
+set -o vi
+
+export PATH="~/bin:$PATH"
+export GOPATH=$HOME/git
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+export BAT_THEME="TwoDark"
