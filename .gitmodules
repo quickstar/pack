@@ -10,3 +10,6 @@
 [submodule "theming/start/vim-airline-themes"]
 	path = theming/start/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
+[submodule "plugins/start/vim-tmux-navigator"]
+	path = plugins/start/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
