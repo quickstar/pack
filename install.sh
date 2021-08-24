@@ -1,26 +1,21 @@
 #!/bin/bash
-############################
-# .make.sh
-# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
-############################
 
-########## Variables
+MYHOME=${1:-"${HOME}"}
 
 # dotfiles directory
-dir=${HOME}/.vim/pack
+PATH_TO_PACK="${MYHOME}/.vim/pack"
 
 # list of files/folders to symlink in homedir
-files=".bashrc .inputrc .tmux.conf .vimrc"
+declare -a files
+files=(.bashrc)
+files+=(.inputrc)
+files+=(.tmux.conf)
+files+=(.vimrc)
 
-##########
+cd "${PATH_TO_PACK}"
 
-# change to the dotfiles directory
-echo -n "Changing to the $dir directory ..."
-cd $dir
-echo "done"
-
-for file in $files; do
-    echo "Creating symlink to $file in home directory."
-    ln -s $dir/$file ~/$file
+for file in "${files[@]}"; do
+    echo "creating symlink from ${PATH_TO_PACK}/${file} to ${MYHOME}/${file}"
+    ln -s "${PATH_TO_PACK}/${file}" "${MYHOME}/${file}"
 done
 
