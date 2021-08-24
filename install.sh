@@ -16,6 +16,6 @@ cd "${PATH_TO_PACK}"
 
 for file in "${files[@]}"; do
     echo "creating symlink from ${PATH_TO_PACK}/${file} to ${MYHOME}/${file}"
-    ln -s "${PATH_TO_PACK}/${file}" "${MYHOME}/${file}"
+    ln -sf "${PATH_TO_PACK}/${file}" "${MYHOME}/${file}"
 done
 
