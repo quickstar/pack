@@ -88,6 +88,11 @@ alias k='kubectl'
 alias bat='batcat'
 alias dka='docker kill $(docker ps -q)'
 
+# Enable kubectl autocompletion
+source <(kubectl completion bash)
+# Enable autocompletion also for k alias
+complete -F __start_kubectl k
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
