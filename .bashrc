@@ -6,27 +6,22 @@ esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoreboth:erasedups
 
-# append to the history file, don't overwrite it
-shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=$HISTSIZE
+HISTIGNORE="history*:exit"
 
-# check the window size after each command and, if necessary,
+# append to the history f-ile, don't overwrite it
+# and check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+shopt -s histappend checkwinsize
 
-# With these bindings, up/down arrows will work like default if the command line is blank.
-# If you have entered some text though, it will search the history for commands that start
-# with the currently entered text.
-if [[ $- == *i* ]]
-then
-  bind '"\e[A": history-search-backward'
-  bind '"\e[B": history-search-forward'
-  bind 'TAB:menu-complete'
-fi
+function historymerge {
+    history -n; history -w; history -c; history -r;
+}
+trap historymerge EXIT
 
 GREEN="\[\e[1;32m\]"
 RED="\[\e[1;31m\]"
@@ -60,12 +55,15 @@ prompt_command() {
   PS1+="${status_color}➜  ${CYAN}\W"
   PS1+="${git_message}"
   PS1+=" ${RESET}"
-  history -a
+  history -n
+  history -w
+  history -c
+  history -r
 }
 
 export PROMPT_COMMAND=prompt_command
 
-  # colored GCC warnings and errors
+# colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # enable color support of ls and also add handy aliases
