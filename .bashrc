@@ -109,3 +109,5 @@ export PATH="~/bin:$PATH"
 export GOPATH=$HOME/git
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 export BAT_THEME="TwoDark"
+export EDITOR=vim
+
