@@ -13,8 +13,8 @@ HISTSIZE=10000
 HISTFILESIZE=$HISTSIZE
 HISTIGNORE="history*:exit"
 
-# append to the history f-ile, don't overwrite it
-# and check the window size after each command and, if necessary,
+# append to the history file, don't overwrite it
+# and check the window size after each command, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s histappend checkwinsize
 
@@ -55,10 +55,7 @@ prompt_command() {
   PS1+="${status_color}➜  ${CYAN}\W"
   PS1+="${git_message}"
   PS1+=" ${RESET}"
-  history -n
-  history -w
-  history -c
-  history -r
+  historymerge
 }
 
 export PROMPT_COMMAND=prompt_command
@@ -85,6 +82,7 @@ alias ~='cd ~/'
 alias k='kubectl'
 alias bat='batcat'
 alias dka='docker kill $(docker ps -q)'
+alias gs='git status'
 
 # Enable kubectl autocompletion
 source <(kubectl completion bash)
