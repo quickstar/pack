@@ -3,7 +3,7 @@ set packpath^=~/.vim
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set nobackup                  " no backup files
-set noswapfile                " no swap filesset nocompatible              " be iMproved, required filetype off                  " required
+set noswapfile                " no swap
 
 let mapleader = ","
 
@@ -13,6 +13,9 @@ set termguicolors			" Enable 'true color' support in the terminal
 set	background=dark			" let vim now that we are using a dark terminal theme
 colorscheme gruvbox			" set gruvbox as our default theme
 syntax enable				" enable syntax processing
+
+" transparent bg
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
 set splitbelow
 set splitright
