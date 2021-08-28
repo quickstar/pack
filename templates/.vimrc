@@ -46,6 +46,7 @@ set wildmode=longest,list,full
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " YAML documents are required to have a 2 space indentation
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
 
 set tabstop=4				" number of visual spaces per TAB
 set softtabstop=4
