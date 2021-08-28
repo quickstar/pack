@@ -22,6 +22,6 @@ for file in "${files[@]}"; do
 	mkdir -p "${DESTPATH}" 2>/dev/null
 
 	echo "creating symlink from ${SOURCE} to ${DEST}"
-	l -sf "${SOURCE}" "${DEST}"
+	ln -sf "${SOURCE}" "${DEST}"
 done
 
