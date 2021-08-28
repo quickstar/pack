@@ -17,6 +17,10 @@ syntax enable				" enable syntax processing
 set splitbelow
 set splitright
 
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+
 " Disable annoying beeping
 set noerrorbells
 set vb t_vb=
@@ -72,10 +76,15 @@ nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <M-¨> :TmuxNavigatePrevious<cr>
 
 " Maps Alt-[h,j,k,l] to resizing a window split
-map <silent> <M-H> <C-w>5<
-map <silent> <M-J> <C-W>5-
-map <silent> <M-K> <C-W>5+
-map <silent> <M-L> <C-w>5>
+nnoremap <silent> <M-H> <C-w>5<
+nnoremap <silent> <M-J> <C-W>5-
+nnoremap <silent> <M-K> <C-W>5+
+nnoremap <silent> <M-L> <C-w>5>
+
+" Show all open buffers and their status
+nnoremap <C-@> :ls<CR>:b
+nnoremap <C-l> :bnext<CR>
+nnoremap <C-h> :bprevious<CR>
 
 " Directory browser settings
 let g:netrw_banner = 0 " Removing the banner
@@ -91,5 +100,11 @@ let g:netrw_winsize = 25 " Set the directory explorer width to 25% of the page
 " Reveal current file in netrw
 map <Leader>f :let @/=expand("%:t") <Bar> execute 'Lexplore' expand("%:h") <Bar> normal n<CR>
 
+" Autmatically show autocomplete menu wehn pressing a . in a go file
 au filetype go inoremap <buffer> . .<C-x><C-o>
 
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
