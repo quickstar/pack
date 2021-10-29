@@ -6,4 +6,5 @@ My VIM plugins and syntax highligthing extensions. To install just execute:
 git clone git@github.com:quickstar/pack.git ~/.vim/pack
 cd ~/.vim/pack
 git submodule update --init
+./install.sh
 ```
