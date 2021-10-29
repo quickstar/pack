@@ -11,8 +11,9 @@ filetype plugin indent on	" required
 
 set termguicolors			" Enable 'true color' support in the terminal
 set	background=dark			" let vim now that we are using a dark terminal theme
-colorscheme gruvbox			" set gruvbox as our default theme
+packadd! dracula			" enable syntax processing
 syntax enable				" enable syntax processing
+colorscheme dracula			" set dracula as our default theme
 
 " transparent bg
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE

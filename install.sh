@@ -1,9 +1,13 @@
-#!/bin/bash
+#!/bin/bash -e
 
 MYHOME=${1:-"${HOME}"}
 
 # dotfiles directory
 PATH_TO_PACK="${MYHOME}/.vim/pack"
+
+if [ -x "$(command -v git)" ]; then
+	git clone https://github.com/tmux-plugins/tpm "${MYHOME}/.tmux/plugins/tpm"
+fi
 
 # list of files/folders to symlink in homedir
 declare -a files

@@ -13,3 +13,6 @@
 [submodule "plugins/start/vim-tmux-navigator"]
 	path = plugins/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "theming/start/dracula"]
+	path = theming/start/dracula
+	url = https://github.com/dracula/vim.git
