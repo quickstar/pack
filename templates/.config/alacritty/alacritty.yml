@@ -3,16 +3,16 @@ background_opacity: 0.9
 
 font:
   normal:
-    family: Fira Mono
+    family: Hack
     style: Regular
   bold:
-    family: Fira Mono
+    family: Hack
     style: Bold
   italic:
-    family: Fira Mono
+    family: Hack
     style: Italic
   bold_italic:
-    family: Fira Mono
+    family: Hack
     style: Bold Italic
   size: 12
 
