@@ -1,0 +1,80 @@
+format = """\
+	[\\[$username$hostname${custom.ip}$cmd_duration\\]](yellow)\
+$line_break\
+	$character\
+	$directory\
+	$golang\
+	$git_branch\
+	$git_commit\
+	$git_state\
+	$git_status 
+"""
+add_newline = false
+
+[custom.ip]
+command = "hostname -I | awk '{print $1}'"
+format = "[ - $output]($style)"
+os = "linux"
+style = "yellow"
+when = ''
+
+[username]
+format = "[$user]($style)"
+show_always = true
+style_user = "yellow"
+style_root = "bold red"
+
+[hostname]
+format = "[@$hostname]($style)"
+ssh_only = false
+style = "yellow"
+
+[directory]
+style = "cyan"
+format = "[$path]($style)[$read_only]($read_only_style)"
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+vicmd_symbol = "[➜](bold green)"
+
+[git_branch]
+format= ' [git:\(]($style)[$branch](red)[\)]($style)'
+style = "blue"
+
+[git_status]
+format = """\
+	[$conflicted\
+	[$untracked](bold green)\
+	$modified\
+	$staged\
+	$renamed\
+	[$deleted](bold red)]\
+	(bold yellow)\
+	[($ahead_behind$stashed)]($style)\
+"""
+style = "cyan"
+untracked = "+"
+stashed = "≡"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\)'
+style = "yellow"
+
+[cmd_duration]
+format = ' \([$duration]($style)\)'
+style = "green"
+min_time = 500
+
+[golang]
+symbol = " "
+format = ' [$symbol($version)]($style)'
+
+[python]
+disabled = true
+
+[package]
+disabled = true
+
+[jobs]
+disabled = true

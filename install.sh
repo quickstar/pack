@@ -5,7 +5,7 @@ MYHOME=${1:-"${HOME}"}
 # dotfiles directory
 PATH_TO_PACK="${MYHOME}/.vim/pack"
 
-if [ -x "$(command -v git)" ]; then
+if [ -x "$(command -v git)" ] && [ ! -d "${MYHOME}/.tmux/plugins/tpm" ]; then
 	git clone https://github.com/tmux-plugins/tpm "${MYHOME}/.tmux/plugins/tpm"
 fi
 
@@ -16,6 +16,7 @@ files+=(.inputrc)
 files+=(.tmux.conf)
 files+=(.vimrc)
 files+=(.config/alacritty/alacritty.yml)
+files+=(.config/starship.toml)
 
 cd "${PATH_TO_PACK}"
 

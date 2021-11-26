@@ -23,42 +23,44 @@ function historymerge {
 }
 trap historymerge EXIT
 
-GREEN="\[\e[1;32m\]"
-RED="\[\e[1;31m\]"
-YELLOW="\[\e[0;93m\]"
-BLUE="\[\e[0;94m\]"
-CYAN="\[\e[0;96m\]"
-RESET="\[\e[m\]"
-PSTITLE="${YELLOW}[\u@\h - $(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')]\n"
+if ! [ -x "$(command -v starship)" ]; then
+	GREEN="\[\e[1;32m\]"
+	RED="\[\e[1;31m\]"
+	YELLOW="\[\e[0;93m\]"
+	BLUE="\[\e[0;94m\]"
+	CYAN="\[\e[0;96m\]"
+	RESET="\[\e[m\]"
+	PSTITLE="${YELLOW}[\u@\h - $(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')]\n"
 
 
-# Customize prompt
-prompt_command() {
-  local err_code="$?"
-  local status_color=""
-  local git_message=""
+	# Customize prompt
+	prompt_command() {
+	  local err_code="$?"
+	  local status_color=""
+	  local git_message=""
 
-  if [ $err_code != 0 ]; then
-    status_color=$RED
-  else
-    status_color=$GREEN
-  fi
+	  if [ $err_code != 0 ]; then
+		status_color=$RED
+	  else
+		status_color=$GREEN
+	  fi
 
-  if [ $(git rev-parse --is-inside-work-tree 2>/dev/null) ]; then
-	git_message=" ${BLUE}git:(${RED}$(git branch 2>/dev/null | grep "^*" | colrm 1 2)${BLUE})"
-	if [[ `git status --porcelain` ]]; then
-	  git_message="${git_message}${YELLOW}✗"
-	fi
-  fi
+	  if [ $(git rev-parse --is-inside-work-tree 2>/dev/null) ]; then
+		git_message=" ${BLUE}git:(${RED}$(git branch 2>/dev/null | grep "^*" | colrm 1 2)${BLUE})"
+		if [[ `git status --porcelain` ]]; then
+		  git_message="${git_message}${YELLOW}✗"
+		fi
+	  fi
 
-  PS1="${PSTITLE}"
-  PS1+="${status_color}➜  ${CYAN}\W"
-  PS1+="${git_message}"
-  PS1+=" ${RESET}"
-  historymerge
-}
+	  PS1="${PSTITLE}"
+	  PS1+="${status_color}➜  ${CYAN}\W"
+	  PS1+="${git_message}"
+	  PS1+=" ${RESET}"
+	  historymerge
+	}
 
-export PROMPT_COMMAND=prompt_command
+	export PROMPT_COMMAND=prompt_command
+fi
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
@@ -70,8 +72,15 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
 fi
 
+if [ -x "$(command -v kubectl)" ]; then
+	alias k='kubectl'
+	# Enable kubectl autocompletion
+	source <(kubectl completion bash)
+	# Enable autocompletion also for k alias
+	complete -F __start_kubectl k
+fi
+
 unset color_prompt force_color_prompt
-# some more ls aliases
 alias l='ls -alh'
 alias ll='ls -lh'
 alias la='ls -A'
@@ -79,15 +88,10 @@ alias cgit='cd ~/git'
 alias cplace='cd ~/git/placeme'
 alias ..='cd ..'
 alias ~='cd ~/'
-alias k='kubectl'
 alias bat='batcat'
 alias dka='docker kill $(docker ps -q)'
 alias gs='git status'
-
-# Enable kubectl autocompletion
-source <(kubectl completion bash)
-# Enable autocompletion also for k alias
-complete -F __start_kubectl k
+alias s='git status'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -109,3 +113,6 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 export BAT_THEME="TwoDark"
 export EDITOR=vim
 
+if [ -x "$(command -v starship)" ]; then
+	eval "$(starship init bash)"
+fi
