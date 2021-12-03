@@ -1,9 +1,8 @@
 format = """\
-	[\\[$username$hostname${custom.ip}$cmd_duration\\]](yellow)\
+	[\\[$username$hostname${custom.ip}$cmd_duration$golang\\]](yellow)\
 $line_break\
 	$character\
 	$directory\
-	$golang\
 	$git_branch\
 	$git_commit\
 	$git_state\
@@ -67,8 +66,8 @@ style = "green"
 min_time = 500
 
 [golang]
-symbol = " "
-format = ' [$symbol($version)]($style)'
+symbol = " -  "
+format = '[$symbol($version)]($style)'
 
 [python]
 disabled = true
