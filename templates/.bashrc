@@ -80,6 +80,10 @@ if [ -x "$(command -v kubectl)" ]; then
 	complete -F __start_kubectl k
 fi
 
+if [ -x "$(command -v docker)" ]; then
+	alias dka='docker kill $(docker ps -q)'
+fi
+
 unset color_prompt force_color_prompt
 alias l='ls -alh'
 alias ll='ls -lh'
@@ -89,7 +93,6 @@ alias cplace='cd ~/git/placeme'
 alias ..='cd ..'
 alias ~='cd ~/'
 alias bat='batcat'
-alias dka='docker kill $(docker ps -q)'
 alias gs='git status'
 alias s='git status'
 
