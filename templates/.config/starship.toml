@@ -1,5 +1,5 @@
 format = """\
-	[\\[$username$hostname${custom.ip}$cmd_duration$golang\\]](yellow)\
+	[\\[$username$hostname$localip$cmd_duration$rust$golang\\]](yellow)\
 $line_break\
 	$character\
 	$directory\
@@ -9,6 +9,11 @@ $line_break\
 	$git_status 
 """
 add_newline = false
+
+[localip]
+ssh_only = false
+format = "[ - $localipv4]($style)"
+style = "yellow"
 
 [custom.ip]
 command = "hostname -I | awk '{print $1}'"
@@ -67,6 +72,10 @@ min_time = 500
 
 [golang]
 symbol = " -  "
+format = '[$symbol($version)]($style)'
+
+[rust]
+symbol = " - 🦀 "
 format = '[$symbol($version)]($style)'
 
 [python]

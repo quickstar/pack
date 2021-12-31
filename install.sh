@@ -2,9 +2,6 @@
 
 MYHOME=${1:-"${HOME}"}
 
-# dotfiles directory
-PATH_TO_PACK="${MYHOME}/.vim/pack"
-
 if [ -x "$(command -v git)" ] && [ ! -d "${MYHOME}/.tmux/plugins/tpm" ]; then
 	git clone https://github.com/tmux-plugins/tpm "${MYHOME}/.tmux/plugins/tpm"
 fi
@@ -32,6 +29,7 @@ if [ ! -f "${font_dir}Hack Regular Nerd Font Complete.ttf" ]; then
 fi
 
 
+
 # list of files/folders to symlink in homedir
 declare -a files
 files=(.bashrc)
@@ -40,6 +38,9 @@ files+=(.tmux.conf)
 files+=(.vimrc)
 files+=(.config/alacritty/alacritty.yml)
 files+=(.config/starship.toml)
+
+# dotfiles directory
+PATH_TO_PACK="${MYHOME}/.vim/pack"
 
 cd "${PATH_TO_PACK}"
 
