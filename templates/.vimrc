@@ -5,11 +5,18 @@ filetype off                  " required
 set nobackup                  " no backup files
 set noswapfile                " no swap
 
-let mapleader = ","
+nnoremap <Space> <Nop>
+let mapleader = " "
 
 filetype plugin indent on	" required
 
-set termguicolors			" Enable 'true color' support in the terminal
+" Enable 'true color' support in the terminal if available
+if &t_Co >= 256 || has("gui_running")
+	if (has("termguicolors"))
+		set termguicolors
+	endif
+endif
+
 set	background=dark			" let vim now that we are using a dark terminal theme
 packadd! dracula			" enable syntax processing
 syntax enable				" enable syntax processing
