@@ -147,3 +147,7 @@ function s:QuitWindow()
 	quit
 endfunction
 
+" Configure gitgutter plugin
+let g:gitgutter_enabled = 1
+set updatetime=1000
+

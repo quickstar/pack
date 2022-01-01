@@ -22,3 +22,6 @@
 [submodule "plugins/start/vim-prettier"]
 	path = plugins/start/vim-prettier
 	url = https://github.com/prettier/vim-prettier
+[submodule "theming/start/vim-gitgutter"]
+	path = theming/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
