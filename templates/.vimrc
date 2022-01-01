@@ -105,12 +105,38 @@ let g:netrw_winsize = 25 " Set the directory explorer width to 25% of the page
 " Reveal current file in netrw
 map <Leader>f :let @/=expand("%:t") <Bar> execute 'Lexplore' expand("%:h") <Bar> normal n<CR>
 
-" Autmatically show autocomplete menu wehn pressing a . in a go file
-au filetype go inoremap <buffer> . .<C-x><C-o>
-
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_powerline_fonts = 1
+
+" Autmatically show autocomplete menu wehn pressing a . in a go file
+au filetype go inoremap <buffer> . .<C-x><C-o>
+
+" Configure vimdiff options
+set diffopt=vertical,filler,indent-heuristic,algorithm:patience,internal
+
+" Detect if vim is started as a diff tool (vim -d, vimdiff)
+" NOTE: Does not work when you start Vim as usual and enter diff mode using :diffthis
+" TODO: Find a way to disable relative numbers during diff
+if &diff
+	let s:is_started_as_vim_diff = 1
+	syntax off
+	setlocal nospell
+endif
+
+" In diff mode, navigate up and down changed hunks via <alt-[j|k]>
+nnoremap <expr> <M-j> &diff ? ']czz' : '<C-w>j'
+nnoremap <expr> <M-k> &diff ? '[czz' : '<C-w>k'
+
+nmap <silent> <leader>q :call <SID>QuitWindow()<CR>
+
+function s:QuitWindow()
+	if get(s:, 'is_started_as_vim_diff', 0)
+		qall
+		return
+	endif
+	quit
+endfunction
 
