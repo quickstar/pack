@@ -116,6 +116,9 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 export BAT_THEME="TwoDark"
 export EDITOR=vim
 
-if [ -x "$(command -v starship)" ]; then
-	eval "$(starship init bash)"
+STARSHIPBIN=starship
+
+if [ -x "$(command -v $STARSHIPBIN)" ]; then
+	eval "$($STARSHIPBIN init bash)"
 fi
+
