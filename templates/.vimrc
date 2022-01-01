@@ -125,8 +125,8 @@ au filetype go inoremap <buffer> . .<C-x><C-o>
 set diffopt=vertical,filler,indent-heuristic,algorithm:patience,internal
 
 " In diff mode, navigate up and down changed hunks via <alt-[j|k]>
-nnoremap <expr> <M-j> &diff ? ']czz' : '<C-w>j'
-nnoremap <expr> <M-k> &diff ? '[czz' : '<C-w>k'
+nnoremap <expr> <leader>j &diff ? ']czz' : '<C-w>j'
+nnoremap <expr> <leader>k &diff ? '[czz' : '<C-w>k'
 
 nmap <silent> <leader>q :call <SID>SmartQuit()<CR>
 
@@ -207,4 +207,5 @@ endfunction
 " Configure gitgutter plugin
 let g:gitgutter_enabled = 1
 set updatetime=1000
-
+nmap <leader>j <Plug>(GitGutterNextHunk)
+nmap <leader>k <Plug>(GitGutterPrevHunk)

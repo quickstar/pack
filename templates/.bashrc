@@ -4,6 +4,18 @@ case $- in
       *) return;;
 esac
 
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 export HISTCONTROL=ignoreboth:erasedups
@@ -23,7 +35,9 @@ function historymerge {
 }
 trap historymerge EXIT
 
-if ! [ -x "$(command -v starship)" ]; then
+STARSHIPBIN=/home/quickstar/git/starship/target/debug/starship
+
+if ! [ -x "$(command -v $STARSHIPBIN)" ]; then
 	GREEN="\[\e[1;32m\]"
 	RED="\[\e[1;31m\]"
 	YELLOW="\[\e[0;93m\]"
@@ -90,37 +104,29 @@ if [ -x "$(command -v docker)" ]; then
 	alias rmif='docker rmi -f $(docker images -q)'
 fi
 
-unset color_prompt force_color_prompt
+if [ -x "$(command -v git)" ]; then
+	alias gs='git status'
+	alias s='git status'
+	alias gh="git log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+fi
+
+if [ -x "$(command -v batcat)" ]; then
+	alias bat='batcat'
+fi
+
+alias ..='cd ..'
+alias ~='cd ~/'
+alias cgit='cd ~/git'
+alias cplace='cd ~/git/placeme'
 alias l='ls -alh'
 alias ll='ls -lh'
 alias la='ls -A'
-alias cgit='cd ~/git'
-alias cplace='cd ~/git/placeme'
-alias ..='cd ..'
-alias ~='cd ~/'
-alias bat='batcat'
-alias gs='git status'
-alias gh='git hist'
-alias s='git status'
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
 
 # enable vi mode in bash
 set -o vi
 
-export PATH="~/bin:$PATH"
 export GOPATH=$HOME/git
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-export BAT_THEME="TwoDark"
+export PATH="~/bin:/usr/local/go/bin:$GOPATH/bin:$PATH"
 export EDITOR=vim
 
 if [ -x "$(command -v starship)" ]; then
@@ -129,4 +135,8 @@ fi
 
 if [ -x "$(command -v hcloud)" ]; then
 	source <(hcloud completion bash)
+fi
+
+if [ -x "$(command -v cargo)" ]; then
+	. "$HOME/.cargo/env"
 fi
