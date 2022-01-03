@@ -209,3 +209,12 @@ let g:gitgutter_enabled = 1
 set updatetime=1000
 nmap <C-j> <Plug>(GitGutterNextHunk)
 nmap <C-k> <Plug>(GitGutterPrevHunk)
+
+" Moving lines up or down. The mappings work in normal, insert and visual modes,
+" allowing you to move the current line, or a selected block of lines.
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
