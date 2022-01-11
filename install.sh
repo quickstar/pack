@@ -16,15 +16,6 @@ if [ ! -f "${font_dir}Hack Regular Nerd Font Complete.ttf" ]; then
 	# Reset font cache on Linux
 	if [[ -n $(command -v fc-cache) ]]; then
 	  fc-cache -f "$font_dir"
-	  case $? in
-		[0-1])
-		  # Catch fc-cache returning 1 on a success
-		  exit 0
-		  ;;
-		*)
-		  exit $?
-		  ;;
-	  esac
 	fi
 fi
 
