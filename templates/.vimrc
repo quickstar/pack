@@ -45,9 +45,9 @@ set timeoutlen=1000 ttimeoutlen=0    " remove delay when switch between insert a
 set wildmode=longest,list,full
 " Disables automatic commenting on newline:
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 " YAML documents are required to have a 2 space indentation
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2 expandtab
 
 set tabstop=4				" number of visual spaces per TAB
 set softtabstop=4
