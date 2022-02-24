@@ -116,9 +116,10 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 export BAT_THEME="TwoDark"
 export EDITOR=vim
 
-STARSHIPBIN=starship
-
-if [ -x "$(command -v $STARSHIPBIN)" ]; then
+if [ -x "$(command -v starship)" ]; then
 	eval "$($STARSHIPBIN init bash)"
 fi
 
+if [ -x "$(command -v hcloud)" ]; then
+	source <(hcloud completion bash)
+fi
