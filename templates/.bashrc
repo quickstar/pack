@@ -117,7 +117,7 @@ export BAT_THEME="TwoDark"
 export EDITOR=vim
 
 if [ -x "$(command -v starship)" ]; then
-	eval "$($STARSHIPBIN init bash)"
+	eval "$(starship init bash)"
 fi
 
 if [ -x "$(command -v hcloud)" ]; then
