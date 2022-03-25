@@ -1,17 +1,17 @@
 #!/bin/bash -e
 
-MYHOME=${1:-"${HOME}"}
+USER_RC_PATH=${1:-"${HOME}"}
 
-if [ -x "$(command -v git)" ] && [ ! -d "${MYHOME}/.tmux/plugins/tpm" ]; then
-	git clone https://github.com/tmux-plugins/tpm "${MYHOME}/.tmux/plugins/tpm"
+if [ -x "$(command -v git)" ] && [ ! -d "${USER_RC_PATH}/.tmux/plugins/tpm" ]; then
+	git clone https://github.com/tmux-plugins/tpm "${USER_RC_PATH}/.tmux/plugins/tpm"
 fi
 
-font_dir="${MYHOME}/.local/share/fonts/"
+font_dir="${USER_RC_PATH}/.local/share/fonts/"
 if [ ! -f "${font_dir}Hack Regular Nerd Font Complete.ttf" ]; then
 	mkdir -p $font_dir
-	curl -fLo ${MYHOME}/Hack.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
-	unzip -d ${font_dir} ${MYHOME}/Hack.zip
-	rm  ${MYHOME}/Hack.zip
+	curl -fLo ${USER_RC_PATH}/Hack.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
+	unzip -d ${font_dir} ${USER_RC_PATH}/Hack.zip
+	rm  ${USER_RC_PATH}/Hack.zip
 
 	# Reset font cache on Linux
 	if [[ -n $(command -v fc-cache) ]]; then
@@ -31,17 +31,16 @@ files+=(.config/alacritty/alacritty.yml)
 files+=(.config/starship.toml)
 
 # dotfiles directory
-PATH_TO_PACK="${MYHOME}/.vim/pack"
+PATH_TO_PACK="${USER_RC_PATH}/.vim/pack"
 
 cd "${PATH_TO_PACK}"
 
 for file in "${files[@]}"; do
 	SOURCE="${PATH_TO_PACK}/templates/${file}"
-	DEST="${MYHOME}/${file}"
+	DEST="${USER_RC_PATH}/${file}"
 	DESTPATH="$(dirname ${DEST})"
 	mkdir -p "${DESTPATH}" 2>/dev/null
 
 	echo "creating symlink from ${SOURCE} to ${DEST}"
 	ln -sf "${SOURCE}" "${DEST}"
 done
-
