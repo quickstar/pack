@@ -82,6 +82,12 @@ fi
 
 if [ -x "$(command -v docker)" ]; then
 	alias dka='docker kill $(docker ps -q)'
+	alias dcp='docker container prune -f'
+	alias dip='docker image prune -f'
+	alias dvp='docker volume prune -f'
+	alias drd='docker rmi -f $(docker images | grep devcontainer\|vsc)'
+	alias dclean='dka && dcp && dip && dvp'
+	alias rmif='docker rmi -f $(docker images -q)'
 fi
 
 unset color_prompt force_color_prompt
@@ -94,6 +100,7 @@ alias ..='cd ..'
 alias ~='cd ~/'
 alias bat='batcat'
 alias gs='git status'
+alias gh='git hist'
 alias s='git status'
 
 # enable programmable completion features (you don't need to enable
