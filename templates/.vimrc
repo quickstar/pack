@@ -122,7 +122,7 @@ let g:airline_powerline_fonts = 1
 au filetype go inoremap <buffer> . .<C-x><C-o>
 
 " Configure vimdiff options
-set diffopt=vertical,filler,indent-heuristic,algorithm:patience,internal
+set diffopt=internal,filler,vertical,context:3,foldcolumn:1,indent-heuristic,algorithm:patience
 
 " In diff mode, navigate up and down changed hunks via <alt-[j|k]>
 nnoremap <expr> <leader>j &diff ? ']czz' : '<C-w>j'
