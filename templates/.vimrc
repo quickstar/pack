@@ -235,3 +235,7 @@ set updatetime=1000
 nmap <C-j> <Plug>(GitGutterNextHunk)
 nmap <C-k> <Plug>(GitGutterPrevHunk)
 
+nmap <leader>gs :G<cr>
+nmap <leader>gc :Git commit<cr>
+nmap <leader>gp :Git push<cr>
+
