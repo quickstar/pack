@@ -1,13 +1,17 @@
 #!/bin/bash -e
 
+# Arguments
 USER_RC_PATH=${1:-"${HOME}"}
 SKIP_FONTS=${2:-"true"}
+
+# Variables
+PATH_TO_PACK="${USER_RC_PATH}/.vim/pack"
 
 if [ -x "$(command -v git)" ] && [ ! -d "${USER_RC_PATH}/.tmux/plugins/tpm" ]; then
 	git clone https://github.com/tmux-plugins/tpm "${USER_RC_PATH}/.tmux/plugins/tpm"
 fi
 
-if [ "${USER_RC_PATH}" != "true" ]; then
+if [ "${SKIP_FONTS}" != "true" ]; then
 	font_dir="${USER_RC_PATH}/.local/share/fonts/"
 	if [ ! -f "${font_dir}Hack Regular Nerd Font Complete.ttf" ]; then
 		mkdir -p $font_dir
@@ -33,10 +37,7 @@ files+=(.config/alacritty/alacritty.yml)
 files+=(.config/starship.toml)
 
 # dotfiles directory
-PATH_TO_PACK="${USER_RC_PATH}/.vim/pack"
-
 cd "${PATH_TO_PACK}"
-
 for file in "${files[@]}"; do
 	SOURCE="${PATH_TO_PACK}/templates/${file}"
 	DEST="${USER_RC_PATH}/${file}"

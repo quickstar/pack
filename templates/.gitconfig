@@ -1,0 +1,40 @@
+[alias]
+	hist = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	wip = for-each-ref refs/remotes/origin/wip --sort='authordate' --format='Author : %(authorname) Branch : %(refname:short) Datum  : %(committerdate)'
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+[core]
+	autocrlf = input
+	editor = 'vim'
+	quotepath = off
+[diff]
+	tool = vim
+	submodule = log
+	algorithm = patience
+	indentHeuristic = true
+[difftool]
+	prompt = true
+[difftool "bc3"]
+	trustExitCode = true
+[difftool "vim"]
+	# by default, Git runs vimdiff in read only mode. Make it run in read-write mode
+	cmd = "vim -f -d -c \"wincmd l\" -c 'cd \"GIT_PREFIX\"' \"$LOCAL\" \"$REMOTE\""
+[gui]
+	encoding = utf-8
+[merge]
+	tool = vimdiff
+	guitool = bc3
+	conflictstyle = diff3
+	keepBackup = false
+[mergetool]
+	prompt = false
+[merge "tool.bc3"]
+	trustExitCode = true
+#[mergetool "vimdiff"]
+#	cmd = vim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[user]
+	name = Lukas Läderach
+	email = lukas.laederach@3volutions.ch

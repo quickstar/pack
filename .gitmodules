@@ -1,24 +1,30 @@
+[submodule "plugins/start/vim-mergetool"]
+	path = plugins/start/vim-mergetool
+	url = https://github.com/idbrii/vim-mergetool.git
+[submodule "plugins/start/vim-prettier"]
+	path = plugins/start/vim-prettier
+	url = https://github.com/prettier/vim-prettier
+[submodule "plugins/start/vim-tmux-navigator"]
+	path = plugins/start/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "plugins/start/vim-toml"]
+	path = plugins/start/vim-toml
+	url = https://github.com/cespare/vim-toml.git
 [submodule "syntax/start/vim-go"]
 	path = syntax/start/vim-go
 	url = https://github.com/fatih/vim-go.git
 [submodule "theming/start/gruvbox"]
 	path = theming/start/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
+[submodule "theming/start/dracula"]
+	path = theming/start/dracula
+	url = https://github.com/dracula/vim.git
 [submodule "theming/start/vim-airline"]
 	path = theming/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline
 [submodule "theming/start/vim-airline-themes"]
 	path = theming/start/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
-[submodule "plugins/start/vim-tmux-navigator"]
-	path = plugins/start/vim-tmux-navigator
-	url = https://github.com/christoomey/vim-tmux-navigator.git
-[submodule "theming/start/dracula"]
-	path = theming/start/dracula
-	url = https://github.com/dracula/vim.git
-[submodule "plugins/start/vim-toml"]
-	path = plugins/start/vim-toml
-	url = https://github.com/cespare/vim-toml.git
-[submodule "plugins/start/vim-prettier"]
-	path = plugins/start/vim-prettier
-	url = https://github.com/prettier/vim-prettier
+[submodule "theming/start/vim-gitgutter"]
+	path = theming/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
