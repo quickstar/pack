@@ -204,17 +204,34 @@ function s:set_option(option, value, ...)
   endif
 endfunction
 
+" Moving lines up or down. The mappings work in normal, insert and visual modes,
+" allowing you to move the current line, or a selected block of lines.
+nnoremap <C-J> :m .+1<CR>==
+nnoremap <C-K> :m .-2<CR>==
+inoremap <C-J> <Esc>:m .+1<CR>==gi
+inoremap <C-K> <Esc>:m .-2<CR>==gi
+vnoremap <C-J> :m '>+1<CR>gv=gv
+vnoremap <C-K> :m '<-2<CR>gv=gv
+
+" possible values: 'local' (default), 'remote', 'base'
+let g:mergetool_prefer_revision = 'local'
+
+" (m) - for working tree version of merged file
+" (r) - for 'remote' revision
+" (l) - for 'local' revision
+" let g:mergetool_layout = 'bmr'
+
+nmap <leader>mt <plug>(MergetoolToggle)
+nnoremap <silent> <leader>mb :call mergetool#toggle_layout('mr,b')<CR>
+
+nmap <expr> <C-h> &diff? '<Plug>(MergetoolDiffExchangeLeft)' : '<C-h>'
+nmap <expr> <C-l> &diff? '<Plug>(MergetoolDiffExchangeRight)' : '<C-l>'
+nmap <expr> <C-j> &diff? '<Plug>(MergetoolDiffExchangeDown)' : '<C-j>'
+nmap <expr> <C-k> &diff? '<Plug>(MergetoolDiffExchangeUp)' : '<C-k>'
+
 " Configure gitgutter plugin
 let g:gitgutter_enabled = 1
 set updatetime=1000
 nmap <C-j> <Plug>(GitGutterNextHunk)
 nmap <C-k> <Plug>(GitGutterPrevHunk)
 
-" Moving lines up or down. The mappings work in normal, insert and visual modes,
-" allowing you to move the current line, or a selected block of lines.
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
