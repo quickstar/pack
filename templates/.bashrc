@@ -95,7 +95,7 @@ if [ -x "$(command -v kubectl)" ]; then
 fi
 
 if [ -x "$(command -v docker)" ]; then
-	alias dka='docker kill $(docker ps -q)'
+	alias dka='if [[ $(docker ps -q) ]]; then docker kill $(docker ps -q); fi'
 	alias dcp='docker container prune -f'
 	alias dip='docker image prune -f'
 	alias dvp='docker volume prune -f'
