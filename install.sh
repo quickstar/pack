@@ -15,7 +15,7 @@ if [ "${SKIP_FONTS}" != "true" ]; then
 	font_dir="${USER_RC_PATH}/.local/share/fonts/"
 	if [ ! -f "${font_dir}Hack Regular Nerd Font Complete.ttf" ]; then
 		mkdir -p $font_dir
-		curl -fLo ${USER_RC_PATH}/Hack.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
+		curl -fLo ${USER_RC_PATH}/Hack.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/Hack.zip
 		unzip -d ${font_dir} ${USER_RC_PATH}/Hack.zip
 		rm  ${USER_RC_PATH}/Hack.zip
 
