@@ -1,22 +1,17 @@
 set packpath^=~/.vim
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
-set nobackup                  " no backup files
-set noswapfile                " no swap
+set nocompatible               " be iMproved, required
+set backspace=indent,eol,start " allow backspacing over autoindent, line breaks and and start of insert
+filetype off                   " required
+set nobackup                   " no backup files
+set noswapfile                 " no swap
 
 nnoremap <Space> <Nop>
 let mapleader = " "
 
 filetype plugin indent on	" required
 
-" Enable 'true color' support in the terminal if available
-if &t_Co >= 256 || has("gui_running")
-	if (has("termguicolors"))
-		set termguicolors
-	endif
-endif
-
+set termguicolors			" Enable 'true color' support in the terminal
 set	background=dark			" let vim now that we are using a dark terminal theme
 packadd! dracula			" enable syntax processing
 syntax enable				" enable syntax processing
