@@ -11,6 +11,7 @@ $line_break\
 add_newline = false
 
 [localip]
+disabled = false
 ssh_only = false
 format = "[ - $localipv4]($style)"
 style = "yellow"
