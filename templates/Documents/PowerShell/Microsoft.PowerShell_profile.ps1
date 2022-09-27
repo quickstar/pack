@@ -4,6 +4,7 @@ $env:LC_ALL = 'C.UTF-8'
 # Make sure the required modules are on path
 Import-Module posh-git
 Import-Module Get-ChildItemColor
+Import-Module Terminal-Icons
 
 # Disable posh-git prompt since starship takes care of this, only use it for tab-completion
 $GitPromptSettings.EnableFileStatus = $false
@@ -46,12 +47,29 @@ Set-PSReadlineOption -EditMode vi -BellStyle None -ViModeIndicator Script -ViMod
 Set-PSReadlineKeyHandler -Key UpArrow   -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 
+## This is now enabled by default: https://devblogs.microsoft.com/powershell/psreadline-2-2-6-enables-predictive-intellisense-by-default/
+Set-PSReadLineOption -PredictionViewStyle ListView
+# Set-PSReadLineOption -PredictionSource History
+
 # This omits the output of an extra line break after each command
 $Global:GetChildItemColorVerticalSpace = 0
 
 # Default the prompt to robbyrussell oh-my-posh theme
 # Set-PoshPrompt -Theme robbyrussel
 Invoke-Expression (&starship init powershell)
+
+## --------------------------- ##
+##  Additional Autocompleters  ##
+## --------------------------- ##
+Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
+	param($wordToComplete, $commandAst, $cursorPosition)
+	[Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
+	$Local:word = $wordToComplete.Replace('"', '""')
+	$Local:ast = $commandAst.ToString().Replace('"', '""')
+	winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
+		[System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+	}
+}
 
 ## --------------------------------------------------------------- ##
 ##  Some handy functions which makes all day work more enjoyable   ##

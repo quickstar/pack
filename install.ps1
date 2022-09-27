@@ -28,8 +28,13 @@ $PATH_TO_PACK = ($ENV:USERPROFILE + "\.vim\pack")
 
 Install-Module -AllowClobber Get-ChildItemColor -Force -Scope AllUsers
 Install-Module Posh-Git -Force -Scope AllUsers
+Install-Module -Name Terminal-Icons -Repository PSGallery
+Install-Module PSReadLine -AllowPrerelease -Force
 
-$files = @("Documents\PowerShell\Microsoft.PowerShell_profile.ps1", ".vimrc", ".config\starship.toml")
+$files = @("Documents\PowerShell\Microsoft.PowerShell_profile.ps1",
+	".vimrc",
+	".config\starship.toml"
+)
 
 cd $PATH_TO_PACK
 
