@@ -24,6 +24,9 @@ colors:
   cursor:
     text: CellBackground
     cursor: CellForeground
+  footer_bar:
+    background: '0x282a36'
+    foreground: '0xf8f8f2'
   vi_mode_cursor:
     text: CellBackground
     cursor: CellForeground
@@ -34,9 +37,6 @@ colors:
     focused_match:
       foreground: '0x44475a'
       background: '0xffb86c'
-    bar:
-      background: '0x282a36'
-      foreground: '0xf8f8f2'
   line_indicator:
     foreground: None
     background: None
