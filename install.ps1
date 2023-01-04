@@ -31,15 +31,10 @@ Install-Module Posh-Git -Force -Scope AllUsers
 Install-Module -Name Terminal-Icons -Repository PSGallery
 Install-Module PSReadLine -AllowPrerelease -Force
 
-$files = @("Documents\PowerShell\Microsoft.PowerShell_profile.ps1",
-	".vimrc",
-	".config\starship.toml"
-)
+$files = @(".vimrc", ".config\starship.toml")
 
-cd $PATH_TO_PACK
-
-$profilePath = $PROFILE
-$profileFolderPath = Split-Path $PROFILE
+$SOURCE="${PATH_TO_PACK}\templates\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+New-Item -ItemType SymbolicLink -Force -Path $PROFILE -Target $SOURCE
 
 Foreach ($file in $files) {
 	$SOURCE="${PATH_TO_PACK}\templates\${file}"
