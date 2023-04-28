@@ -10,6 +10,7 @@
 	autocrlf = input
 	editor = 'vim'
 	quotepath = off
+	sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
 [diff]
 	tool = vim
 	submodule = log
