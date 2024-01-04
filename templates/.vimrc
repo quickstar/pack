@@ -66,7 +66,6 @@ autocmd VimEnter * silent exec "! echo -ne '\e[1 q'"
 autocmd VimLeave * silent exec "! echo -ne '\e[5 q'"
 
 let g:tmux_navigator_no_mappings = 1
-
 execute "set <M-h>=\eh"
 execute "set <M-j>=\ej"
 execute "set <M-k>=\ek"
@@ -80,13 +79,19 @@ nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <M-¨> :TmuxNavigatePrevious<cr>
+nnoremap <silent> <M-ö> :TmuxNavigatePrevious<cr>
 
-" Maps Alt-[h,j,k,l] to resizing a window split
+" Maps Alt-[H,J,K,L] to resizing a window split
 nnoremap <silent> <M-H> <C-w>5<
 nnoremap <silent> <M-J> <C-W>5-
 nnoremap <silent> <M-K> <C-W>5+
 nnoremap <silent> <M-L> <C-w>5>
+
+" Opens netrw in the current directory
+nnoremap <leader>pv :Ex<CR>
+
+nnoremap <C-p> :GFiles<CR>
+nnoremap <leader>p :Files<CR>
 
 " Show all open buffers and their status
 nnoremap <C-@> :ls<CR>:b
@@ -96,13 +101,9 @@ nnoremap <C-h> :bprevious<CR>
 " Directory browser settings
 let g:netrw_banner = 0 " Removing the banner
 let g:netrw_liststyle = 3 " Changing directory view to tree-style
-let g:netrw_browse_split = 3 " Open files in a new tab
+"let g:netrw_browse_split = 3 " Open files in a new tab
 let g:netrw_altv = 1 " Change from left splitting to right splitting
 let g:netrw_winsize = 25 " Set the directory explorer width to 25% of the page
-"augroup ProjectDrawer
-"  autocmd!
-"  autocmd VimEnter * :Vexplore
-"augroup END
 
 " Reveal current file in netrw
 map <Leader>f :let @/=expand("%:t") <Bar> execute 'Lexplore' expand("%:h") <Bar> normal n<CR>
@@ -119,19 +120,9 @@ au filetype go inoremap <buffer> . .<C-x><C-o>
 " Configure vimdiff options
 set diffopt=internal,filler,vertical,context:3,foldcolumn:1,indent-heuristic,algorithm:patience
 
-" In diff mode, navigate up and down changed hunks via <alt-[j|k]>
+" In diff mode, navigate up and down changed chunks via <ctrl-[j|k]>
 nnoremap <expr> <C-j> &diff ? ']czz' : '<C-w>j'
 nnoremap <expr> <C-k> &diff ? '[czz' : '<C-w>k'
-
-nmap <silent> <leader>q :call <SID>SmartQuit()<CR>
-
-function s:SmartQuit()
-	if get(s:, 'is_started_as_vim_diff', 0)
-		qall
-		return
-	endif
-	quit
-endfunction
 
 " Detect if vim is started as a diff tool (vim -d, vimdiff)
 " - Disable syntax highlighting
