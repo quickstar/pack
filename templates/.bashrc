@@ -60,7 +60,7 @@ if ! [ -x "$(command -v $STARSHIPBIN)" ]; then
 	  fi
 
 	  if [ $(git rev-parse --is-inside-work-tree 2>/dev/null) ]; then
-		git_message=" ${BLUE}git:(${RED}$(git branch 2>/dev/null | grep "^*" | colrm 1 2)${BLUE})"
+		git_message=" ${BLUE}git:(${RED}$(git branch 2>/dev/null | grep "^*" | cut -c3-)${BLUE})"
 		if [[ `git status --porcelain` ]]; then
 		  git_message="${git_message}${YELLOW}✗"
 		fi
