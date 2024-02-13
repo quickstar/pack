@@ -39,3 +39,6 @@
 [user]
 	name = Lukas Läderach
 	email = lukas.laederach@3volutions.ch
+[rerere]
+	enabled = true
+	autoUpdate = true
