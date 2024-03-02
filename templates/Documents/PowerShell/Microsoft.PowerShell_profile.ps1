@@ -12,7 +12,7 @@ $GitPromptSettings.EnableFileStatus = $false
 function cup { Set-Location .. }
 function cleanpwd { (Get-Location).Path }
 function chome { Set-Location ~ }
-function cgit { Set-Location $HOME\git }
+function cgit { Set-Location d:\git }
 function gs { git status }
 function gh { git hist }
 
@@ -120,4 +120,18 @@ function Cleanup-Path {
     Set-ItemProperty -Path $RegPropertyLocation -Name $PathType -Value $distinctPath
 
     $env:path = ($env:path -Split ";" -replace "\\+$", "" | Sort-Object -Unique | Where-Object { $_ }) -join ';'
+}
+
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
+
+if (Get-Command "zoxide" -errorAction SilentlyContinue) {
+	Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
 }

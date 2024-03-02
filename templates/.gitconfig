@@ -1,6 +1,7 @@
 [alias]
 	hist = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-	wip = for-each-ref refs/remotes/origin/wip --sort='authordate' --format='Author : %(authorname) Branch : %(refname:short) Datum  : %(committerdate)'
+	wip = for-each-ref refs/remotes/origin/* --sort='authordate' --format='Author : %(authorname) Branch : %(refname:short) Datum  : %(committerdate)'
+	bblame = blame -w -C -C -C
 [color]
 	branch = auto
 	diff = auto
