@@ -2,7 +2,13 @@
 $env:LC_ALL = 'C.UTF-8'
 
 # Make sure the required modules are on path
-Import-Module posh-git
+$poshGitModule = Get-Module posh-git -ListAvailable | Sort-Object Version -Descending | Select-Object -First 1
+if ($poshGitModule) {
+	    $poshGitModule | Import-Module
+}
+elseif (Test-Path -LiteralPath ($modulePath = Join-Path (Split-Path $MyInvocation.MyCommand.Path -Parent) (Join-Path src 'posh-git.psd1'))) {
+	    Import-Module $modulePath
+}
 Import-Module Get-ChildItemColor
 Import-Module Terminal-Icons
 
