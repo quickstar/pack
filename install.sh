@@ -33,7 +33,7 @@ files=(.bashrc)
 files+=(.inputrc)
 files+=(.tmux.conf)
 files+=(.vimrc)
-files+=(.config/alacritty/alacritty.yml)
+files+=(.config/alacritty/alacritty.toml)
 files+=(.config/starship.toml)
 
 # dotfiles directory
