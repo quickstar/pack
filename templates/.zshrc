@@ -7,17 +7,14 @@ alias la='ls -A'
 if [ -x "$(command -v lsd)" ]; then
 	alias ls='lsd --group-dirs first'
 fi
-if [ -x "$(command -v bat)" ]; then
-	alias cat='bat'
-fi
-if [ -x "$(command -v zoxide)" ]; then
-	alias cd='z'
-fi
-
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
+
+# Specify the locale settings for the user's shell session.
+export LANG="de_CH.UTF-8"
+export LC_ALL="de_CH.UTF-8"
 
 # Basic auto/tab completion
 autoload -U compinit
@@ -68,14 +65,27 @@ if [ -x "$(command -v git)" ]; then
 	alias gh="git log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 fi
 
+if [ -x "$(command -v bat)" ]; then
+	export BAT_THEME="Dracula"
+	alias cat='bat'
+	# enabling get colorized help pages e.g. cp --help
+	alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+	alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
 if command -v fzf &> /dev/null; then
 	gd() {
-	  preview="git diff $@ --color=always -- {-1}"
-	  git diff $@ --name-only | fzf -m --ansi --preview $preview
+	  preview="git diff $@ --color=always --name-only --relative --diff-filter=d  -- {-1} | xargs bat -diff"
+	  git diff $@ --name-only | fzf -m --ansi --preview-window=70% --preview $preview
+	}
+	gd2() {
+		git diff --name-only --relative --diff-filter=d | xargs bat --diff
 	}
 fi
 
 if command -v zoxide &> /dev/null; then
+	alias cd='z'
 	eval "$(zoxide init zsh)"
 fi
 

@@ -5,6 +5,7 @@ set backspace=indent,eol,start " allow backspacing over autoindent, line breaks 
 filetype off                   " required
 set nobackup                   " no backup files
 set noswapfile                 " no swap
+set scrolloff=5
 
 nnoremap <Space> <Nop>
 let mapleader = " "
@@ -86,6 +87,10 @@ nnoremap <silent> <M-H> <C-w>5<
 nnoremap <silent> <M-J> <C-W>5-
 nnoremap <silent> <M-K> <C-W>5+
 nnoremap <silent> <M-L> <C-w>5>
+
+" Keep the cursor centered while srolling up/down
+nnoremap j jzz
+nnoremap k kzz
 
 " Opens netrw in the current directory
 nnoremap <leader>pv :Ex<CR>
