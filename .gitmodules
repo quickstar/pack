@@ -13,6 +13,9 @@
 [submodule "syntax/start/vim-go"]
 	path = syntax/start/vim-go
 	url = https://github.com/fatih/vim-go.git
+[submodule "syntax/start/vim-mustache-handlebars"]
+	path = syntax/start/vim-mustache-handlebars
+	url = https://github.com/mustache/vim-mustache-handlebars.git
 [submodule "theming/start/gruvbox"]
 	path = theming/start/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
