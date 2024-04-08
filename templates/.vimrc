@@ -76,11 +76,11 @@ execute "set <M-J>=\eJ"
 execute "set <M-K>=\eK"
 execute "set <M-L>=\eL"
 
-nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <M-ö> :TmuxNavigatePrevious<cr>
+nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
+nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
+nnoremap <silent> <M-ö> :TmuxNavigatePrevious<CR>
 
 " Maps Alt-[H,J,K,L] to resizing a window split
 nnoremap <silent> <M-H> <C-w>5<
@@ -88,18 +88,55 @@ nnoremap <silent> <M-J> <C-W>5-
 nnoremap <silent> <M-K> <C-W>5+
 nnoremap <silent> <M-L> <C-w>5>
 
-" Keep the cursor centered while srolling up/down
-nnoremap j jzz
-nnoremap k kzz
-
 " Opens netrw in the current directory
 nnoremap <leader>pv :Ex<CR>
 
-nnoremap <C-p> :GFiles<CR>
-nnoremap <leader>p :Files<CR>
+nnoremap <C-P> :GFiles<cr>
+nnoremap <leader>r :GFiles<cr>
+nnoremap <leader>p :Files<cr>
+
+function! s:TermNav(direction)
+  if &filetype ==# 'toggleterm'
+    execute "ToggleTerm"
+  elseif winnr('$') > 1
+    execute "wincmd " . a:direction
+  else
+    execute "TmuxNavigate" . a:direction
+  endif
+endfunction
+
+"nnoremap <C-j> :ToggleTerm<CR>
+"tnoremap <C-j> :ToggleTerm<CR>
+
+" Add this to your .vimrc or init.vim
+
+function! ToggleTerm()
+  " Check if the terminal buffer is already open and visible
+  let l:term_bufnr = bufnr('$')
+  while l:term_bufnr >= 1
+    if getbufvar(l:term_bufnr, '&buftype') == 'terminal'
+      " Check if the terminal buffer is visible in any window
+      let l:winid = win_findbuf(l:term_bufnr)[0]
+      if l:winid
+        " If visible, hide the terminal by closing its window
+        execute l:winid . 'wincmd c'
+        return
+      endif
+    endif
+    let l:term_bufnr -= 1
+  endwhile
+
+  " If no terminal buffer is found or none are visible, open a new one
+  botright split :term
+endfunction
+
+tnoremap <M-h> <C-\><C-n>:call s:TermNav('Left')<CR>
+tnoremap <M-j> <C-\><C-n>:call s:TermNav('Down')<CR>
+tnoremap <M-k> <C-\><C-n>:call s:TermNav('Up')<CR>
+tnoremap <M-l> <C-\><C-n>:call s:TermNav('Right')<CR>
 
 " Show all open buffers and their status
-nnoremap <C-@> :ls<CR>:b
+nnoremap <C-@> :Buffers<CR>
 nnoremap <C-l> :bnext<CR>
 nnoremap <C-h> :bprevious<CR>
 
@@ -151,7 +188,7 @@ augroup END
 " In diff mode:
 " - Disable syntax highlighting
 " - Disable spell checking
-function CheckDiffMode(timer)
+function! CheckDiffMode(timer)
   let curwin = winnr()
 
   " Check each window

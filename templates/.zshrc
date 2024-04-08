@@ -13,8 +13,8 @@ SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
 
 # Specify the locale settings for the user's shell session.
-export LANG="de_CH.UTF-8"
-export LC_ALL="de_CH.UTF-8"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # Basic auto/tab completion
 autoload -U compinit
