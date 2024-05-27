@@ -20,7 +20,6 @@ function cleanpwd { (Get-Location).Path }
 function chome { Set-Location ~ }
 function cgit { Set-Location d:\git }
 function gs { git status }
-function gh { git hist }
 
 # Set all the aliases
 Remove-Item Alias:pwd -Force
@@ -33,6 +32,7 @@ Set-Alias which Get-Command -ErrorAction SilentlyContinue
 Set-Alias ~ chome -Option AllScope
 Set-Alias vi vim
 Set-Alias k kubectl
+Set-Alias gg lazygit
 Set-Alias reboot Restart-Computer
 
 # Include this if you like a vim command line experience
