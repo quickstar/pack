@@ -1,0 +1,89 @@
+" Set leader key
+let mapleader = " "
+
+" Common settings -------------------------
+" Show the current mode (Insert, Replace, etc.) on the last line of the screen
+set showmode
+
+" Set the number of screen lines to keep above and below the cursor (scrolloff)
+set so=5
+
+" Show matches as you type the search query (incremental search)
+set incsearch
+
+" Ignore case in search patterns
+set ignorecase
+
+" Show line numbers
+set number
+
+" Show relative line numbers (relative to the current line)
+set relativenumber
+
+" Display incomplete commands in the bottom right of the screen
+set showcmd
+
+" Highlight the line where the cursor is located
+set cursorline
+
+" Enhanced command-line completion with a visual menu
+set wildmenu
+
+" Briefly jump to matching brackets [{()}] when entering a closing bracket
+set showmatch
+
+" Plugins  --------------------------------
+" Enables easy surrounding of text with pairs like (), {}, "", etc.
+set surround
+
+" Allows multiple cursors and editing in multiple places simultaneously
+set multiple-cursors
+
+" Provides easy toggling of comments
+set commentary
+
+" Adds argument text objects, allowing easier navigation/editing within arguments
+set argtextobj
+
+" Makes moving within a document faster and more efficient
+set easymotion
+
+" Adds 'entire' text object, allowing selection of entire buffer or file
+set textobj-entire
+
+" Replace text with the contents of a register
+set ReplaceWithRegister
+
+" Mappings --------------------------------
+" Start debugging process
+map <leader>d <Action>(Debug)
+
+" Attach debugger to a running process
+map <leader>da <Action>(XDebugger.AttachToProcess)
+
+" Stop the current process (e.g., debugging session)
+map <leader>ds <Action>(Stop)
+
+" Rename the element under the cursor (refactoring)
+map <leader>r <Action>(RenameElement)
+
+" Toggle distraction-free mode
+map <leader>z <Action>(ToggleDistractionFreeMode)
+
+" Select the current file in the project view
+map <leader>f <Action>(SelectInProjectView)
+
+" Annotate the current file with VCS history
+map <leader>gb <Action>(Annotate)
+
+" Show the version control history of the current file
+map <leader>gh <Action>(Vcs.ShowTabbedFileHistory)
+
+" Jump to the next error in the code
+map <S-Space> <Action>(GotoNextError)
+
+" Toggle a line breakpoint for debugging
+map <leader>b <Action>(ToggleLineBreakpoint)
+
+" Show the file structure popup for easy navigation
+map <leader>o <Action>(FileStructurePopup)

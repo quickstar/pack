@@ -31,7 +31,7 @@ Install-Module Posh-Git -Force -Scope AllUsers
 Install-Module -Name Terminal-Icons -Repository PSGallery
 Install-Module PSReadLine -AllowPrerelease -Force
 
-$files = @(".vimrc", ".config\starship.toml", ".config\alacritty\alacritty.yml")
+$files = @(".vimrc", ".ideavimrc", ".config\starship.toml", ".config\alacritty\alacritty.yml")
 
 $SOURCE="${PATH_TO_PACK}\templates\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 New-Item -ItemType SymbolicLink -Force -Path $PROFILE -Target $SOURCE
