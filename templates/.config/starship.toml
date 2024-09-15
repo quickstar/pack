@@ -9,6 +9,7 @@ $line_break\
 	$git_status \
 """
 add_newline = false
+command_timeout = 1500
 
 [localip]
 disabled = false
