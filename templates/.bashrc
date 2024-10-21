@@ -129,6 +129,11 @@ export GOPATH=$HOME/git
 export PATH="~/bin:/usr/local/go/bin:$GOPATH/bin:$PATH"
 export EDITOR=vim
 
+if [ -x "$(command -v zoxide)" ]; then
+	alias cd='z'
+	eval "$(zoxide init bash)"
+fi
+
 if [ -x "$(command -v starship)" ]; then
 	eval "$(starship init bash)"
 fi
@@ -140,3 +145,4 @@ fi
 if [ -x "$(command -v cargo)" ]; then
 	. "$HOME/.cargo/env"
 fi
+
