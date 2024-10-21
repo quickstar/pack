@@ -146,3 +146,8 @@ if [ -x "$(command -v cargo)" ]; then
 	. "$HOME/.cargo/env"
 fi
 
+if [ -x "$(command -v ssh.exe)" ]; then
+	alias ssh='ssh.exe'
+	alias ssh-add='ssh-add.exe'
+fi
+
