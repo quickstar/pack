@@ -126,7 +126,7 @@ alias la='ls -A'
 set -o vi
 
 export GOPATH=$HOME/git
-export PATH="~/bin:/usr/local/go/bin:$GOPATH/bin:$PATH"
+export PATH="~/bin:~/.local/bin:/usr/local/go/bin:$GOPATH/bin:$PATH"
 export EDITOR=vim
 
 if [ -x "$(command -v zoxide)" ]; then
