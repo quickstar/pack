@@ -30,7 +30,7 @@ fi
 # list of files/folders to symlink in homedir
 declare -a files
 files=(.bashrc)
-files=(.zshrc)
+files+=(.zshrc)
 files+=(.inputrc)
 files+=(.tmux.conf)
 files+=(.vimrc)
