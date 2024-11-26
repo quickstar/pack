@@ -15,6 +15,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# enable git completion: https://git-scm.com/book/en/v2/Appendix-A:-Git-in-Other-Environments-Git-in-Bash
+if [ -f ~/.config/git-completion.bash ]; then
+    . ~/.config/git-completion.bash
+fi
+
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -142,6 +147,10 @@ if [ -x "$(command -v hcloud)" ]; then
 	source <(hcloud completion bash)
 fi
 
+if [ -x "$(command -v lazygit)" ]; then
+	alias gg='lazygit'
+fi
+
 if [ -x "$(command -v cargo)" ]; then
 	. "$HOME/.cargo/env"
 fi
@@ -150,4 +159,3 @@ if [ -x "$(command -v ssh.exe)" ]; then
 	alias ssh='ssh.exe'
 	alias ssh-add='ssh-add.exe'
 fi
-
