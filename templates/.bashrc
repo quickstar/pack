@@ -99,6 +99,15 @@ if [ -x "$(command -v kubectl)" ]; then
 	complete -F __start_kubectl k
 fi
 
+if [ -x "$(command -v op)" ]; then
+	# Enable 1password cli autocompletion
+	source <(op completion bash)
+elif [ -x "$(command -v /mnt/c/Tools/op.exe)" ]; then
+	# Enable 1password cli autocompletion
+	source <(/mnt/c/Tools/op.exe completion bash)
+	alias op='/mnt/c/Tools/op.exe'
+fi
+
 if [ -x "$(command -v docker)" ]; then
 	alias dka='if [[ $(docker ps -q) ]]; then docker kill $(docker ps -q); fi'
 	alias dcp='docker container prune -f'
@@ -158,4 +167,9 @@ fi
 if [ -x "$(command -v ssh.exe)" ]; then
 	alias ssh='ssh.exe'
 	alias ssh-add='ssh-add.exe'
+fi
+
+if [ -f "$HOME/.agent-bridge.sh" ]; then
+	source $HOME/.agent-bridge.sh
+	export SSH_AUTH_SOCK=~/.1password/agent.sock
 fi
