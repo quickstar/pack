@@ -20,6 +20,7 @@ function cleanpwd { (Get-Location).Path }
 function chome { Set-Location ~ }
 function cgit { Set-Location d:\git }
 function gs { git status }
+function publicip { (Invoke-WebRequest -Uri 'ipinfo.io' -UseBasicParsing).Content | ConvertFrom-Json | Format-List }
 
 # Set all the aliases
 Remove-Item Alias:pwd -Force
