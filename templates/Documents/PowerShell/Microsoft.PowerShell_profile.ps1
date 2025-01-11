@@ -1,20 +1,3 @@
-# Ensure git log uses correct encoding (german Umlaute)
-$env:LC_ALL = 'C.UTF-8'
-
-# Make sure the required modules are on path
-$poshGitModule = Get-Module posh-git -ListAvailable | Sort-Object Version -Descending | Select-Object -First 1
-if ($poshGitModule) {
-	    $poshGitModule | Import-Module
-}
-elseif (Test-Path -LiteralPath ($modulePath = Join-Path (Split-Path $MyInvocation.MyCommand.Path -Parent) (Join-Path src 'posh-git.psd1'))) {
-	    Import-Module $modulePath
-}
-Import-Module Get-ChildItemColor
-Import-Module Terminal-Icons
-
-# Disable posh-git prompt since starship takes care of this, only use it for tab-completion
-$GitPromptSettings.EnableFileStatus = $false
-
 function cup { Set-Location .. }
 function cleanpwd { (Get-Location).Path }
 function chome { Set-Location ~ }
@@ -61,22 +44,13 @@ Set-PSReadLineOption -PredictionViewStyle ListView
 # This omits the output of an extra line break after each command
 $Global:GetChildItemColorVerticalSpace = 0
 
+if (Get-Command "zoxide" -errorAction SilentlyContinue) {
+    Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
+}
+
 # Default the prompt to robbyrussell oh-my-posh theme
 # Set-PoshPrompt -Theme robbyrussel
 Invoke-Expression (&starship init powershell)
-
-## --------------------------- ##
-##  Additional Autocompleters  ##
-## --------------------------- ##
-Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
-	param($wordToComplete, $commandAst, $cursorPosition)
-	[Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
-	$Local:word = $wordToComplete.Replace('"', '""')
-	$Local:ast = $commandAst.ToString().Replace('"', '""')
-	winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
-		[System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
-	}
-}
 
 ## --------------------------------------------------------------- ##
 ##  Some handy functions which makes all day work more enjoyable   ##
@@ -129,16 +103,63 @@ function Cleanup-Path {
     $env:path = ($env:path -Split ";" -replace "\\+$", "" | Sort-Object -Unique | Where-Object { $_ }) -join ';'
 }
 
-# Import the Chocolatey Profile that contains the necessary code to enable
-# tab-completions to function for `choco`.
-# Be aware that if you are missing these lines from your profile, tab completion
-# for `choco` will not function.
-# See https://ch0.co/tab-completion for details.
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
+function Load-PoshGit {
+    if (Get-Module posh-git) {
+        return  # Already loaded, do nothing
+    }
+
+    Write-Verbose "Loading posh-git module..."
+
+    # Try to find the highest version of posh-git installed
+    $poshGitModule = Get-Module posh-git -ListAvailable | Sort-Object Version -Descending | Select-Object -First 1
+    if ($poshGitModule) {
+        $poshGitModule | Import-Module
+    }
+    # If you keep a local copy in src\posh-git.psd1:
+    elseif (Test-Path -LiteralPath ($modulePath = Join-Path (Split-Path $MyInvocation.MyCommand.Path -Parent) (Join-Path src 'posh-git.psd1'))) {
+        Import-Module $modulePath
+    }
+
+    # Disable posh-git prompt so that starship takes care of the prompt
+    # (posh-git must already be imported before setting $GitPromptSettings)
+    $Global:GitPromptSettings.EnableFileStatus = $false
 }
 
-if (Get-Command "zoxide" -errorAction SilentlyContinue) {
-	Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
+# Create a timer that fires once after ~1 second
+$timer = New-Object System.Timers.Timer
+$timer.Interval = 1000  # 1000 ms = 1 second
+$timer.AutoReset = $false  # Only fire once
+
+# Register an event for when the timer Elapses
+Register-ObjectEvent -InputObject $timer -EventName Elapsed -Action {
+    # Safely stop the timer so it doesn't fire again
+    $timer.Stop()
+
+    # Ensure git log uses correct encoding (german Umlaute)
+    $env:LC_ALL = 'C.UTF-8'
+    Import-Module Terminal-Icons
+    Load-PoshGit
+
+    # Import the Chocolatey Profile that contains the necessary code to enable
+    # tab-completions to function for `choco`.
+    $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+    if (Test-Path($ChocolateyProfile)) {
+        Import-Module "$ChocolateyProfile"
+    }
+} | Out-Null
+
+# Start the timer
+$timer.Start()
+
+## --------------------------- ##
+##  Additional Autocompleters  ##
+## --------------------------- ##
+Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
+	param($wordToComplete, $commandAst, $cursorPosition)
+	[Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
+	$Local:word = $wordToComplete.Replace('"', '""')
+	$Local:ast = $commandAst.ToString().Replace('"', '""')
+	winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
+		[System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+	}
 }
