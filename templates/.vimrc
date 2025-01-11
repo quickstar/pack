@@ -95,6 +95,12 @@ nnoremap <C-P> :GFiles<cr>
 nnoremap <leader>r :GFiles<cr>
 nnoremap <leader>p :Files<cr>
 
+" In normal mode, pressing <leader>y will yank the current line into the system clipboard
+nnoremap <leader>y "+y
+
+" In visual mode, pressing <leader>y will yank the highlighted selection into the system clipboard
+xnoremap <leader>y "+y
+
 function! s:TermNav(direction)
   if &filetype ==# 'toggleterm'
     execute "ToggleTerm"

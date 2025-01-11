@@ -54,7 +54,26 @@ set textobj-entire
 " Replace text with the contents of a register
 set ReplaceWithRegister
 
+" Easier split navigation
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
+
+" Maps Alt-[H,J,K,L] to resizing a window split
+" nnoremap <silent> <M-H> <C-w>5<
+" nnoremap <silent> <M-J> <C-W>5-
+" nnoremap <silent> <M-K> <C-W>5+
+" nnoremap <silent> <M-L> <C-w>5>
+
 " Mappings --------------------------------
+
+" In normal mode, pressing <leader>y will yank the current line into the system clipboard
+nnoremap <leader>y "+y
+
+" In visual mode, pressing <leader>y will yank the highlighted selection into the system clipboard
+xnoremap <leader>y "+y
+
 " Start debugging process
 map <leader>d <Action>(Debug)
 
@@ -68,7 +87,8 @@ map <leader>ds <Action>(Stop)
 map <leader>r <Action>(RenameElement)
 
 " Toggle distraction-free mode
-map <leader>z <Action>(ToggleDistractionFreeMode)
+" map <leader>z <Action>(ToggleDistractionFreeMode)
+map <leader>z <Action>(ToggleZenMode)
 
 " Select the current file in the project view
 map <leader>f <Action>(SelectInProjectView)
@@ -80,7 +100,10 @@ map <leader>gb <Action>(Annotate)
 map <leader>gh <Action>(Vcs.ShowTabbedFileHistory)
 
 " Jump to the next error in the code
-map <S-Space> <Action>(GotoNextError)
+map <leader>e <Action>(GotoNextError)
+
+" Jump to the previous error in the code
+map <leader>E <Action>(GotoPreviousError)
 
 " Toggle a line breakpoint for debugging
 map <leader>b <Action>(ToggleLineBreakpoint)
