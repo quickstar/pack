@@ -5,6 +5,10 @@ function cgit { Set-Location d:\git }
 function gs { git status }
 function publicip { (Invoke-WebRequest -Uri 'ipinfo.io' -UseBasicParsing).Content | ConvertFrom-Json | Format-List }
 
+$profileRealPath = (Get-Item $PROFILE).Target
+$profileDirectory = Split-Path $profileRealPath -Parent
+. "$profileDirectory\msteams-functions.ps1"
+
 # Set all the aliases
 Remove-Item Alias:pwd -Force
 Set-Alias pwd cleanpwd
