@@ -1,0 +1,63 @@
+{
+	"$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.34/schema.json",
+	"app_specific_configuration_path": "$Env:KOMOREBI_CONFIG_HOME/applications.json",
+	"animation": {
+		"enabled": true
+	},
+	"window_hiding_behaviour": "Cloak",
+	"cross_monitor_move_behaviour": "Insert",
+	"default_workspace_padding": 8,
+	"default_container_padding": 8,
+	"border": true,
+	"border_width": 6,
+	"border_offset": -1,
+	"floating_applications": [
+		[
+			{
+				"kind": "Exe",
+				"id": "Ssms.exe",
+				"matching_strategy": "Equals"
+			},
+			{
+				"kind": "Class",
+				"id": "WindowsForms10.Window.8.app",
+				"matching_strategy": "StartsWith"
+			}
+		]
+	],
+	"theme": {
+		"palette": "Base16",
+		"name": "Ashes",
+		"unfocused_border": "Base03",
+		"bar_accent": "Base0D"
+	},
+	"stackbar": {
+		"height": 40,
+		"mode": "OnStack",
+		"tabs": {
+			"width": 300
+		}
+	},
+	"monitors": [
+		{
+			"workspaces": [
+				{
+					"name": "I",
+					"layout": "UltrawideVerticalStack"
+				},
+				{
+					"name": "II",
+					"layout": "UltrawideVerticalStack"
+				},
+				{
+					"name": "III",
+					"layout": "UltrawideVerticalStack"
+				},
+				{
+					"name": "IV",
+					"layout": "BSP"
+				}
+			]
+		}
+	]
+}

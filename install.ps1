@@ -31,7 +31,17 @@ Install-Module Posh-Git -Force -Scope AllUsers
 Install-Module -Name Terminal-Icons -Repository PSGallery
 Install-Module PSReadLine -AllowPrerelease -Force
 
-$files = @(".vimrc", ".ideavimrc", ".config\starship.toml", ".config\alacritty\alacritty.yml")
+[System.Environment]::SetEnvironmentVariable("KOMOREBI_CONFIG_HOME", "$HOME\.config\komorebi", "User")
+
+$files = @(
+	".vimrc",
+	".ideavimrc",
+	".config\alacritty\alacritty.yml",
+	".config\komorebi\komorebi.json",
+	".config\komorebi\komorebi.bar.json",
+	".config\starship.toml",
+	".config\whkdrc"
+)
 
 $SOURCE="${PATH_TO_PACK}\templates\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 New-Item -ItemType SymbolicLink -Force -Path $PROFILE -Target $SOURCE

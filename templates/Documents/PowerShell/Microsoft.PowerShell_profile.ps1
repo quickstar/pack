@@ -56,6 +56,26 @@ if (Get-Command "zoxide" -errorAction SilentlyContinue) {
 # Set-PoshPrompt -Theme robbyrussel
 Invoke-Expression (&starship init powershell)
 
+function Remove-CursorCodeFiles {
+    [CmdletBinding()]
+    param()
+
+    # Get path to the target directory using environment variable
+    $targetPath = Join-Path -Path $env:LOCALAPPDATA -ChildPath "Programs\cursor\resources\app\bin"
+    
+    # Use wildcard to match both files
+    $codeFilesPattern = Join-Path -Path $targetPath -ChildPath "code*"
+    
+    try {
+        # Remove matching files and return success message
+        Remove-Item -Path $codeFilesPattern -Include "code", "code.cmd" -Force -ErrorAction Stop
+        return "Successfully removed code files from $targetPath"
+    }
+    catch {
+        return "Failed to remove code files: $_"
+    }
+}
+
 ## --------------------------------------------------------------- ##
 ##  Some handy functions which makes all day work more enjoyable   ##
 ## --------------------------------------------------------------- ##
